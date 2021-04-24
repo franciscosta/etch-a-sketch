@@ -1,0 +1,39 @@
+
+body {
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 95vh;
+    margin-top: 0;
+    overflow: hidden;
+}
+
+div {
+    transition: background-color  0.2s;
+}
+
+.container {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100vw;
+    height: 100vh;
+}
+
+.inner-container {
+    width: 100%;
+    display: flex;
+    flex-direction:row;
+;
+}
+
+.square {
+    background-color: #fff;
+    width: 100%;
+    border: 1px solid rgba(0,0,0,.02);
+}
+
+.selected {
+    background-color: #000;
+
+}
