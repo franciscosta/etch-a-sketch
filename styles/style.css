@@ -74,7 +74,7 @@ div {
 }
 
 .shaded {
-    background-color: #e7e7e7;
+    background-color: #C3BDBD;
     background-size: cover;
 }
 
@@ -152,4 +152,9 @@ div {
     .tip {
         display: none;
     }
+}
+
+.array {
+    font-family: sans-serif;
+    font-size: 0.5em;
 }
