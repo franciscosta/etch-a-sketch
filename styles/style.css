@@ -10,11 +10,16 @@ body {
     flex-direction: column;
     min-height: 95vh;
     margin-top: 0;
-    /* overflow: hidden; */
+    overflow: hidden;
     font-family: "Gordita", sans-serif;
-    color: black;
+    color: #484848;
+    background-color: #fbfbfb;
     font-weight: 700;
-    padding: 50px;
+}
+
+a {
+    color: #484848; 
+    text-decoration: none;
 }
 
 div {
@@ -23,16 +28,28 @@ div {
 
 .header {
     width: 100%;
-    min-height: 80px;
+    height: 5vh;
     display: flex;
     flex-direction: row;
     padding-bottom: 30px;
-    letter-spacing: -0.2em;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: #fbfbfb;
+    font-size: 1.6em;
+}
+
+.inner-header {
+    display: flex;
+    align-items: center;
 }
 
 .container {
-    /* width: 95vw; */
-    /* border: 1px solid black; */
+    width: 100vw;
+    height: 95vh;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    border-top: 1px solid  rgba(0,0,0,.05);
 }
 
 .inner-container {
@@ -42,38 +59,70 @@ div {
 }
 
 .square {
-    background-color: #fff;
+    background-color: #fbfbfb;
     width: 100%;
     border: 1px solid rgba(0,0,0,.02);
+    cursor: pointer;
 }
 
 .selected {
-    background-image: url("/assets/b3.png");
+    background-color: #484848;
     background-size: cover;
 }
 
-.b1 {
-    background-image: url("/assets/b1.png"); 
+.shaded {
+    background-color: #e7e7e7;
+    background-size: cover;
 }
 
-.b2 {
-    background-image: url("/assets/b2.png"); 
+.item {
+    font-size: 0.7em;
+    padding-left: 0.5em;
+    display: block;
+    margin-right: 2px !important;
+    color: #858585;
+    letter-spacing: -0.05em;
+    font-weight: normal;
 }
 
-.b3 {
-    background-image: url("/assets/b3.png"); 
+.item img {
+    width: 30px;
 }
 
-.b4 {
-    background-image: url("/assets/b4.png"); 
+.item a {
+    text-decoration: none;
 }
 
-.b5 {
-    background-image: url("/assets/b5.png"); 
+.clickable {
+    cursor: pointer;
 }
 
+.clickable:hover {
+    color: #484848;
+}
 
+#input {
+    font-size: 0.7em;
+    font-family: "Gordita", sans-serif;
+    width: 50px;
+    border: none;
+    /* margin-top: -4px; */
+    text-align: center;
+    color: #858585;
+    background-color: #fbfbfb;
+    border-bottom: 3px solid #858585;
+}
 
-.title {
-    font-size: 5em;
+#input:focus {
+    outline: none;
+}
+
+@media screen and (max-width: 900px) {
+
+    .item {
+        font-size: 0.6em;
+    }
+    .tip {
+        display: none;
+    }
 }

@@ -1,11 +1,14 @@
+// 1. Create the squares
+
 function createSquares(n) {
 
     document.getElementById("input").value = n;
 
     let container = document.querySelector('.container');
     let counter = 0;
+    let height = window.innerHeight / (window.innerWidth / n);
 
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < height; i++) {
 
         let innerContainer = document.createElement('div');
         innerContainer.classList.add('inner-container');
@@ -22,10 +25,7 @@ function createSquares(n) {
 
             innerContainer.appendChild(square);
             counter++;
-
-            if (n === n * 0.75) {
-                break;
-            }
+            
         }
 
         container.appendChild(innerContainer);
@@ -33,7 +33,23 @@ function createSquares(n) {
 
 }
 
-createSquares(50);
+// 2. Paint and Errase
+
+function paint(target) {
+    document.querySelector(`[data-counter="${target}"]`).classList.add('selected');
+}
+
+function shade(target) {
+    document.querySelector(`[data-counter="${target}"]`).classList.add(...['selected', 'shaded']);
+}
+
+function errase(target) {
+    document.querySelector(`[data-counter="${target}"]`).classList.remove(...['selected', 'shaded']);
+    // document.querySelector(`[data-counter="${target}"]`).classList.remove('shaded');
+}
+
+
+// 3. Clear the paint in one go
 
 function clear() {
 
@@ -41,23 +57,13 @@ function clear() {
     button.addEventListener('click', function() {
         let paintedElements = document.querySelectorAll('.selected');
         for (let i = 0; i < paintedElements.length; i++) {
-            paintedElements[i].classList.remove('selected');
+            paintedElements[i].classList.remove(...['selected', 'shaded']);
         }
     });
 
 }
 
-clear()
-
-
-function paint(target) {
-    document.querySelector(`[data-counter="${target}"]`).classList.add('selected');
-}
-
-function errase(target) {
-    document.querySelector(`[data-counter="${target}"]`).classList.remove('selected');
-}
-
+// 4. Se-draw the grid
 
 function deleteGrid() {
     let container = document.querySelector(".container");
@@ -67,6 +73,7 @@ function deleteGrid() {
 }
 
 function refreshGrid(e) {
+
     e.addEventListener('click', function() {
 
         let input = document.getElementById("input").value;
@@ -77,52 +84,31 @@ function refreshGrid(e) {
 
         input = Number(input);
     
-        deleteGrid();
-
-        console.log(input);
-    
-        if (input <= 200) {
+        if (input <= 10) {
+            deleteGrid();
+            createSquares(10);
+        } else if (input > 10 && input <= 200) {
+            deleteGrid();
             createSquares(input);
         } else if (input > 200) {
+            deleteGrid();
             createSquares(200);
-        } else if (input <= 0) {
-            createSquares(10)
         }
         
     });
-}
-
-// Change grid
-
-let button = document.querySelector(".changeGrid");
-refreshGrid(button);
-
-
-// Style change
-
-function styleChange(n) {
-
-    let selected = document.querySelectorAll('.selected');
-    selected.forEach(s => s.classList.add(`b${n}`));
-
 
 }
 
-window.addEventListener('click', function(e) {
-    if (e.target.attributes['data-back']) {
-        console.log(e.target.attributes['data-back'].value);
-        styleChange(e.target.attributes['data-back'].value)
-    }
-});
+refreshGrid(document.querySelector(".changeGrid"));
 
 
-
-
+// Listen to mouse over movement
 
 window.addEventListener('mouseover', function(e){
 
     if (e.shiftKey) {
         let target = e.target.attributes["1"].value;
+        errase(target);
         paint(target);
     } 
     
@@ -130,18 +116,39 @@ window.addEventListener('mouseover', function(e){
         let target = e.target.attributes["1"].value;
         errase(target);
     }
-})
+
+    if (e.ctrlKey) {
+        let target = e.target.attributes["1"].value;
+        errase(target);
+        shade(target); 
+    }
+
+});
+
+window.addEventListener('click', function(e){
 
 
-// let input = document.querySelector('#input');
-
-// input.addEventListener('keypress', function(e) {
-
-//     if (e.key === "Enter") {
-//         location.reload();
-//         createSquares(Number(input.value)); 
-//     }
+    let target = e.target.attributes["1"].value;
+    errase(target);
+    paint(target);
 
     
+    if (e.altKey) {
+        let target = e.target.attributes["1"].value;
+        errase(target);
+    }
 
-// });
+    if (e.ctrlKey) {
+        window.preventDefault();
+        let target = e.target.attributes["1"].value;
+        errase(target);
+        shade(target); 
+    }
+
+});
+
+// Initialize
+
+createSquares(100);
+
+clear();
