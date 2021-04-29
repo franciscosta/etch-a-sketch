@@ -1,12 +1,14 @@
 function createSquares(n) {
 
+    document.getElementById("input").value = n;
+
     let container = document.querySelector('.container');
     let counter = 0;
 
     for (let i = 0; i < n; i++) {
 
         let innerContainer = document.createElement('div');
-        innerContainer.classList.add('inner-container')
+        innerContainer.classList.add('inner-container');
 
         for (let i = 0; i < n; i++) {
             let square = document.createElement('div');
@@ -16,10 +18,14 @@ function createSquares(n) {
             let attr = document.createAttribute("data-counter");
             attr.value = counter;
             square.setAttributeNode(attr);
-            square.style.cssText += `height:${window.innerHeight / n}px`;
+            square.style.cssText += `height:${window.innerWidth / n}px; width: ${window.innerWidth / n}px`;
 
             innerContainer.appendChild(square);
             counter++;
+
+            if (n === n * 0.75) {
+                break;
+            }
         }
 
         container.appendChild(innerContainer);
@@ -51,6 +57,67 @@ function paint(target) {
 function errase(target) {
     document.querySelector(`[data-counter="${target}"]`).classList.remove('selected');
 }
+
+
+function deleteGrid() {
+    let container = document.querySelector(".container");
+    while (container.firstChild) {
+        container.removeChild(container.firstChild);
+    }
+}
+
+function refreshGrid(e) {
+    e.addEventListener('click', function() {
+
+        let input = document.getElementById("input").value;
+
+        if (input === "") {
+            return;
+        }
+
+        input = Number(input);
+    
+        deleteGrid();
+
+        console.log(input);
+    
+        if (input <= 200) {
+            createSquares(input);
+        } else if (input > 200) {
+            createSquares(200);
+        } else if (input <= 0) {
+            createSquares(10)
+        }
+        
+    });
+}
+
+// Change grid
+
+let button = document.querySelector(".changeGrid");
+refreshGrid(button);
+
+
+// Style change
+
+function styleChange(n) {
+
+    let selected = document.querySelectorAll('.selected');
+    selected.forEach(s => s.classList.add(`b${n}`));
+
+
+}
+
+window.addEventListener('click', function(e) {
+    if (e.target.attributes['data-back']) {
+        console.log(e.target.attributes['data-back'].value);
+        styleChange(e.target.attributes['data-back'].value)
+    }
+});
+
+
+
+
 
 window.addEventListener('mouseover', function(e){
 
