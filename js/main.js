@@ -102,9 +102,9 @@ function refreshGrid(e) {
 refreshGrid(document.querySelector(".changeGrid"));
 
 
-// Listen to mouse over movement
+// 5. Event Listeners
 
-window.addEventListener('mouseover', function(e){
+function etch(e) {
 
     if (e.shiftKey) {
         let target = e.target.attributes["1"].value;
@@ -118,37 +118,22 @@ window.addEventListener('mouseover', function(e){
     }
 
     if (e.ctrlKey) {
-        let target = e.target.attributes["1"].value;
-        errase(target);
-        shade(target); 
-    }
-
-});
-
-window.addEventListener('click', function(e){
-
-
-    let target = e.target.attributes["1"].value;
-    errase(target);
-    paint(target);
-
-    
-    if (e.altKey) {
-        let target = e.target.attributes["1"].value;
-        errase(target);
-    }
-
-    if (e.ctrlKey) {
         window.preventDefault();
         let target = e.target.attributes["1"].value;
         errase(target);
         shade(target); 
     }
 
-});
+}
+
+
+// Listen to mouse over movement
+
+window.addEventListener('mouseover', e => etch(e));
+window.addEventListener('click', e => etch(e));
+window.addEventListener('touchstart', e => etch(e));
 
 // Initialize
 
 createSquares(100);
-
 clear();
