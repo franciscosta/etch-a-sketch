@@ -118,7 +118,7 @@ function etch(e) {
     }
 
     if (e.ctrlKey) {
-        window.preventDefault();
+        e.preventDefault();
         let target = e.target.attributes["1"].value;
         errase(target);
         shade(target); 
